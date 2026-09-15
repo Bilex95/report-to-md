@@ -1,0 +1,12 @@
+{
+  "name": "report-to-md",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Turn a Playwright JSON report into a markdown summary.",
+  "bin": { "report-to-md": "report-to-md.js" },
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node --test",
+    "demo": "node report-to-md.js sample-report.json"
+  }
+}

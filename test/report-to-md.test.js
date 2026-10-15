@@ -47,3 +47,13 @@ test("slowest table is ordered by duration, slowest first", () => {
   assert.match(firstDataRow, /adds items and computes totals/);
   assert.match(firstDataRow, /2\.5s/);
 });
+
+test("toMarkdown respects top option to control number of slowest tests", () => {
+  const md = toMarkdown(summarise(report), { top: 2 });
+  assert.match(md, /### Slowest 2 tests/);
+  const slowestSection = md.split("### Slowest")[1].split("\n");
+  const dataRows = slowestSection.filter(
+    (l) => l.startsWith("| ") && !l.includes("Test |") && !l.includes("---")
+  );
+  assert.equal(dataRows.length, 2);
+});

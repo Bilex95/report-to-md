@@ -97,6 +97,8 @@ if (require.main === module) {
   const args = process.argv.slice(2);
   const file = args.find((a) => !a.startsWith("-")) || "results.json";
   const noFail = args.includes("--no-fail");
+  const topArg = args.find((a) => a.startsWith("--top="));
+  const top = topArg ? parseInt(topArg.slice(6), 10) : 5;
 
   let report;
   try {
@@ -107,6 +109,6 @@ if (require.main === module) {
   }
 
   const summary = summarise(report);
-  process.stdout.write(toMarkdown(summary));
+  process.stdout.write(toMarkdown(summary, { top }));
   process.exit(!noFail && summary.failed > 0 ? 1 : 0);
 }
